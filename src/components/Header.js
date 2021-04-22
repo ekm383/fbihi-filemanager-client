@@ -1,53 +1,147 @@
-import React from "react";
-import styled from "styled-components";
+import React, { useState } from "react";
+import firebase from "firebase";
+import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
 import { NavLink, Link } from "react-router-dom";
 import FBILogo from "../assets/fbihi-logo.png";
+import { AiOutlineMenu, AiOutlineClose } from "react-icons/ai";
 
 const Header = () => {
+  const [click, setClick] = useState(false);
+  const handleClick = () => setClick(!click);
+  const closeMobileMenu = () => setClick(false);
+
+  // Redux methods
+  let dispatch = useDispatch();
+  let { user } = useSelector((state) => ({ ...state }));
+  let history = useHistory();
+
+  const logout = () => {
+    firebase.auth().signOut();
+    dispatch({
+      type: "LOG_OUT",
+      payload: null,
+    });
+    history.push("/");
+  };
+
   return (
-    <StyledHeader>
-      <div className='logo'>
-        <Link to='/'>
-          <img src={FBILogo} alt='logo' />
-        </Link>
+    <div className='header'>
+      <div className='logo-nav'>
+        <div className='logo-container'>
+          <Link to='/'>
+            <img src={FBILogo} className='logo' alt='logo' />
+          </Link>
+        </div>
+
+        <ul className={click ? "nav-options active" : "nav-options"}>
+          {user && user.role === "admin" && (
+            <>
+              <NavLink
+                to='/medicare'
+                className='option'
+                onClick={closeMobileMenu}
+              >
+                Medicare
+              </NavLink>
+              <NavLink
+                to='/aloha-care'
+                className='option'
+                onClick={closeMobileMenu}
+              >
+                Aloha Care
+              </NavLink>
+              <NavLink to='/hmsa' className='option' onClick={closeMobileMenu}>
+                HMSA
+              </NavLink>
+              <NavLink
+                to='/humana'
+                className='option'
+                onClick={closeMobileMenu}
+              >
+                Humana
+              </NavLink>
+              <NavLink
+                to='/kaiser'
+                className='option'
+                onClick={closeMobileMenu}
+              >
+                Kaiser
+              </NavLink>
+              <NavLink
+                to='/united-healthcare'
+                className='option'
+                onClick={closeMobileMenu}
+              >
+                UHC
+              </NavLink>
+              <NavLink to='/ohana' className='option' onClick={closeMobileMenu}>
+                Ohana
+              </NavLink>
+              <button className='logout-button' onClick={logout}>
+                Logout
+              </button>
+            </>
+          )}
+          {user && user.role === "subscriber" && (
+            <>
+              <NavLink
+                to='/medicare'
+                className='option'
+                onClick={closeMobileMenu}
+              >
+                Medicare
+              </NavLink>
+              <NavLink
+                to='/aloha-care'
+                className='option'
+                onClick={closeMobileMenu}
+              >
+                Aloha Care
+              </NavLink>
+              <NavLink to='/hmsa' className='option' onClick={closeMobileMenu}>
+                HMSA
+              </NavLink>
+              <NavLink
+                to='/humana'
+                className='option'
+                onClick={closeMobileMenu}
+              >
+                Humana
+              </NavLink>
+              <NavLink
+                to='/kaiser'
+                className='option'
+                onClick={closeMobileMenu}
+              >
+                Kaiser
+              </NavLink>
+              <NavLink
+                to='/united-healthcare'
+                className='option'
+                onClick={closeMobileMenu}
+              >
+                UHC
+              </NavLink>
+              <NavLink to='/ohana' className='option' onClick={closeMobileMenu}>
+                Ohana
+              </NavLink>
+              <button className='logout-button' onClick={logout}>
+                Logout
+              </button>
+            </>
+          )}
+        </ul>
       </div>
-      <nav>
-        <NavLink to='/medicare'>Medicare</NavLink>
-        <NavLink to='/aloha-care'>Aloha Care</NavLink>
-        <NavLink to='/hmsa'>HMSA</NavLink>
-        <NavLink to='/humana'>Humana</NavLink>
-        <NavLink to='/humana-benefits'>Humana Benefits</NavLink>
-        <NavLink to='/kaiser'>Kaiser</NavLink>
-        <NavLink to='/united-healthcare'>UHC</NavLink>
-        <NavLink to='/united-healthcare-benefits'>UHC Benefits</NavLink>
-        <NavLink to='/ohana'>Ohana</NavLink>
-      </nav>
-    </StyledHeader>
+      <div className='mobile-menu' onClick={handleClick}>
+        {click ? (
+          <AiOutlineClose className='menu-icon' />
+        ) : (
+          <AiOutlineMenu className='menu-icon' />
+        )}
+      </div>
+    </div>
   );
 };
-
-const StyledHeader = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: 1rem;
-  margin-bottom: 3rem;
-  .logo {
-    flex-basis: 20%;
-    img {
-      width: 50%;
-    }
-  }
-  nav {
-    a {
-      color: #1045d6;
-      margin: 11px;
-      font-size: 16px;
-      &:hover {
-        text-decoration: none;
-      }
-    }
-  }
-`;
 
 export default Header;

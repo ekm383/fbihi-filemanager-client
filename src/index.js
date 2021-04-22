@@ -4,5 +4,19 @@ import App from "./App";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "@fontsource/roboto";
 import "./styles.scss";
+import { BrowserRouter } from "react-router-dom";
+import { createStore } from "redux";
+import { Provider } from "react-redux";
+import { composeWithDevTools } from "redux-devtools-extension";
+import rootReducer from "./reducers/index";
 
-ReactDOM.render(<App />, document.getElementById("root"));
+const store = createStore(rootReducer, composeWithDevTools());
+
+ReactDOM.render(
+  <Provider store={store}>
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  </Provider>,
+  document.getElementById("root")
+);

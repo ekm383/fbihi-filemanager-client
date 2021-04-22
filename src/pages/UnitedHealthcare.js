@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from "react";
 import download from "downloadjs";
-import { getAllFiles, getDownload } from "../functions/file";
+import {
+  getAllFiles,
+  getAllBenefitsFiles,
+  getDownload,
+} from "../functions/file";
 
 // Material UI
 import { makeStyles } from "@material-ui/core/styles";
@@ -33,6 +37,7 @@ const UnitedHealthcare = () => {
   const classes = useStyles();
 
   const [filesList, setFilesList] = useState([]);
+  const [benefitsFilesList, setBenefitsFilesList] = useState([]);
   const [errorMsg, setErrorMsg] = useState("");
 
   useEffect(() => {
@@ -47,6 +52,22 @@ const UnitedHealthcare = () => {
     };
 
     getFilesList();
+  }, []);
+
+  useEffect(() => {
+    const getBenefitsFilesList = async () => {
+      try {
+        const { data } = await getAllBenefitsFiles(
+          "united-healthcare-benefits"
+        );
+        setErrorMsg("");
+        setBenefitsFilesList(data);
+      } catch (error) {
+        error.response && setErrorMsg(error.response.data);
+      }
+    };
+
+    getBenefitsFilesList();
   }, []);
 
   const downloadFile = async (id, path, mimetype) => {
@@ -70,7 +91,9 @@ const UnitedHealthcare = () => {
         <Table className={classes.table} aria-label='simple table'>
           <TableHead>
             <TableRow>
-              <TableCell className={classes.nameHeadCell}>UHC Files</TableCell>
+              <TableCell className={classes.nameHeadCell}>
+                United Healthcare Files
+              </TableCell>
               <TableCell></TableCell>
             </TableRow>
           </TableHead>
@@ -91,6 +114,45 @@ const UnitedHealthcare = () => {
                   </TableCell>
                 </TableRow>
               ))
+            ) : (
+              <TableRow>
+                <TableCell colSpan={3} style={{ fontWeight: "300" }}>
+                  No files found
+                </TableCell>
+              </TableRow>
+            )}
+          </TableBody>
+        </Table>
+      </TableContainer>
+      <TableContainer>
+        <Table className={classes.table} aria-label='simple table'>
+          <TableHead>
+            <TableRow>
+              <TableCell className={classes.nameHeadCell}>
+                United Healthcare Benefits Files
+              </TableCell>
+              <TableCell></TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {benefitsFilesList.length > 0 ? (
+              benefitsFilesList.map(
+                ({ _id, title, file_path, file_mimetype }) => (
+                  <TableRow key={_id}>
+                    <TableCell className={classes.nameCell}>{title}</TableCell>
+                    <TableCell className={classes.downloadCell}>
+                      <a
+                        href='#/'
+                        onClick={() =>
+                          downloadFile(_id, file_path, file_mimetype)
+                        }
+                      >
+                        Download
+                      </a>
+                    </TableCell>
+                  </TableRow>
+                )
+              )
             ) : (
               <TableRow>
                 <TableCell colSpan={3} style={{ fontWeight: "300" }}>

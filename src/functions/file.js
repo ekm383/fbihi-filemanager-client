@@ -8,6 +8,11 @@ export const postUpload = async (formData) =>
 export const getAllFiles = async (category) =>
   await axios.post(`${process.env.REACT_APP_API}/getAllFiles`, { category });
 
+export const getAllBenefitsFiles = async (category) =>
+  await axios.post(`${process.env.REACT_APP_API}/getAllBenefitsFiles`, {
+    category,
+  });
+
 export const getDownload = async (id) =>
   await axios.get(`${process.env.REACT_APP_API}/download/${id}`, {
     responseType: "blob",
