@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { useHistory } from "react-router-dom";
-import { FaSpinner } from "react-icons/fa";
 
 const LoadingToRedirect = () => {
   const [count, setCount] = useState(3);
