@@ -55,34 +55,36 @@ const App = () => {
 
   return (
     <BrowserRouter>
-      <div className='container'>
-        <Header />
-        <div className='main-content'>
-          <ToastContainer />
-          <Switch>
-            <Route exact component={Register} path='/register' />
-            <Route
-              exact
-              component={RegisterComplete}
-              path='/register/complete'
-            />
-            <Route exact component={ForgotPassword} path='/forgot/password' />
-            <Route exact component={Login} path='/' />
-            <AdminRoute exact component={Upload} path='/upload' />
-            <UserRoute exact component={Medicare} path='/medicare' />
-            <UserRoute exact component={AlohaCare} path='/aloha-care' />
-            <UserRoute exact component={HMSA} path='/hmsa' />
-            <UserRoute exact component={Humana} path='/humana' />
-            <UserRoute exact component={Kaiser} path='/kaiser' />
-            <UserRoute
-              exact
-              component={UnitedHealthcare}
-              path='/united-healthcare'
-            />
-            <UserRoute exact component={Ohana} path='/ohana' />
-          </Switch>
+      <React.StrictMode>
+        <div className='container'>
+          <Header />
+          <div className='main-content'>
+            <ToastContainer />
+            <Switch>
+              <Route exact component={Register} path='/register' />
+              <Route
+                exact
+                component={RegisterComplete}
+                path='/register/complete'
+              />
+              <Route exact component={ForgotPassword} path='/forgot/password' />
+              <Route exact component={Login} path='/' />
+              <AdminRoute exact component={Upload} path='/upload' />
+              <UserRoute exact component={Medicare} path='/medicare' />
+              <UserRoute exact component={AlohaCare} path='/aloha-care' />
+              <UserRoute exact component={HMSA} path='/hmsa' />
+              <UserRoute exact component={Humana} path='/humana' />
+              <UserRoute exact component={Kaiser} path='/kaiser' />
+              <UserRoute
+                exact
+                component={UnitedHealthcare}
+                path='/united-healthcare'
+              />
+              <UserRoute exact component={Ohana} path='/ohana' />
+            </Switch>
+          </div>
         </div>
-      </div>
+      </React.StrictMode>
     </BrowserRouter>
   );
 };

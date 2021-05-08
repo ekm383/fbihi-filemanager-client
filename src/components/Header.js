@@ -38,6 +38,13 @@ const Header = () => {
           {user && user.role === "admin" && (
             <>
               <NavLink
+                to='/upload'
+                className='option'
+                onClick={closeMobileMenu}
+              >
+                Upload
+              </NavLink>
+              <NavLink
                 to='/medicare'
                 className='option'
                 onClick={closeMobileMenu}
