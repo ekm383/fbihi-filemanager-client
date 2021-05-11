@@ -136,7 +136,7 @@ const Upload = () => {
               <MenuItem value='united-healthcare-benefits'>
                 United Healthcare Benefits
               </MenuItem>
-              <MenuItem value='Ohana'>Ohana</MenuItem>
+              <MenuItem value='ohana'>Ohana</MenuItem>
             </Select>
           </FormControl>
         </div>
