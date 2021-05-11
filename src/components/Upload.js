@@ -133,7 +133,7 @@ const Upload = () => {
               <MenuItem value='humana-benefits'>Humana Benefits</MenuItem>
               <MenuItem value='kaiser'>Kaiser</MenuItem>
               <MenuItem value='united-healthcare'>United Healthcare</MenuItem>
-              <MenuItem value='united-healthcare-Benefits'>
+              <MenuItem value='united-healthcare-benefits'>
                 United Healthcare Benefits
               </MenuItem>
               <MenuItem value='Ohana'>Ohana</MenuItem>
